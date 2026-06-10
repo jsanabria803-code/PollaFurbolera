@@ -243,6 +243,10 @@ select option{background:var(--s1)}
   <div class="sbhero">
     <h1>⚽ Marcador General</h1>
     <div class="sbsub">Mundial 2026 · USA / México / Canadá</div>
+  <div style="display:inline-flex;align-items:center;gap:7px;background:#FEF3C7;border:1px solid #FCD34D;border-radius:8px;padding:8px 14px;margin-top:10px;font-size:12px;color:#7C2D12;max-width:600px;text-align:left">
+    <span style="font-size:16px;flex-shrink:0">⏰</span>
+    <span><strong>Nota:</strong> Los resultados de los partidos se actualizan en horas de la noche o a más tardar al día siguiente. ¡Gracias por su paciencia!</span>
+  </div>
   </div>
   <div id="podwrap" style="display:none"><div class="podrow" id="podrow"></div></div>
   <div class="lb">
@@ -328,6 +332,10 @@ select option{background:var(--s1)}
           <div style="display:flex;justify-content:space-between;padding:7px 8px;background:var(--gold-bg);border:1px solid var(--gold-bd);border-radius:5px;margin-top:4px"><span><strong>TOTAL del Grupo K</strong></span><span style="font-weight:700;color:var(--gold);font-size:15px">19 pts</span></div>
         </div>
       </div>
+      <div style="background:var(--s2);border-radius:var(--r);padding:10px 12px;margin-top:8px;font-size:12px;color:var(--tx2);line-height:1.6">
+        <strong style="color:var(--tx)">¿Cómo se calcula el total de tu cartón?</strong><br>
+        Así como Colombia sumó 43 pts, cada equipo que pusiste en tu cartón aporta puntos según hasta dónde llegue. Al final se suman los puntos de <em>todos</em> tus equipos en todas las rondas. Por ejemplo, si además de Colombia acertaste a Francia en semis, a Brasil en cuartos y al campeón, esos puntos también se acumulan. El participante con más puntos al finalizar el mundial gana.
+      </div>
       <div class="info-box">💡 <strong>Nota:</strong> Los 5 pts por clasificar a Dieciseisavos se ganan una sola vez por equipo, aquí en la fase de grupos. En las rondas siguientes ya no se vuelven a dar esos 5 pts.</div>
     </div>
 
@@ -342,7 +350,7 @@ select option{background:var(--s1)}
           <div style="display:flex;justify-content:space-between;padding:5px 8px;background:var(--gold-bg);border-radius:5px"><span>Colombia pasó a Octavos ✓</span><span style="font-weight:700;color:var(--gold)">+8 pts</span></div>
           <div style="display:flex;justify-content:space-between;padding:5px 8px;background:var(--gold-bg);border-radius:5px"><span>Colombia pasó a Cuartos ✓</span><span style="font-weight:700;color:var(--gold)">+12 pts</span></div>
           <div style="display:flex;justify-content:space-between;padding:5px 8px;background:var(--gold-bg);border-radius:5px"><span>Colombia llegó a Semifinales ✓</span><span style="font-weight:700;color:var(--gold)">+18 pts</span></div>
-          <div style="display:flex;justify-content:space-between;padding:5px 8px;background:var(--no-bg);border-radius:5px"><span>Colombia no llegó a la Final ✗</span><span style="font-weight:700;color:var(--no)">0 pts</span></div>
+          <div style="display:flex;justify-content:space-between;padding:5px 8px;background:var(--no-bg);border-radius:5px"><span>Colombia llegó a semis pero no ganó el 3er puesto ✗</span><span style="font-weight:700;color:var(--no)">0 pts</span></div>
           <div style="display:flex;justify-content:space-between;padding:7px 8px;background:var(--gold-bg);border:1px solid var(--gold-bd);border-radius:5px;margin-top:4px"><span><strong>Solo con Colombia ganas</strong></span><span style="font-weight:700;color:var(--gold);font-size:15px">43 pts</span></div>
         </div>
       </div>
@@ -563,7 +571,7 @@ var S={
     groups:{},   // g -> [t1,t2]
     thirds:[],   // 8 best
     // bracket: each round has array of {id,t1,t1_seed,t2,t2_seed,winner}
-    r32:[],r16:[],qf:[],sf:[],final:{t1:'',t2:'',winner:''},third:{t1:'',t2:'',winner:''},champion:'',subchamp:''
+    r32:[],r16:[],qf:[],sf:[],final:{t1:'',t2:'',winner:''},third:{t1:'',t2:'',winner:''},champion:'',subchamp:'',scores:{}
   }
 };
 
@@ -572,6 +580,13 @@ for(var i=1;i<=NC;i++){
   S.picks[i]={groups:{},thirds:[],r32:[],r16:[],qf:[],sf:[],final:'',third:'',subchamp:'',champion:''};
   S.names[i]='';
 }
+// DATOS CARGADOS
+(function(){
+  var pd={"1": {"groups": {"A": ["México", "Corea del Sur", "Rep. Checa", "Sudáfrica"], "B": ["Suiza", "Canadá", "Bosnia", "Qatar"], "C": ["Brasil", "Marruecos", "Escocia", "Haití"], "D": ["EUA", "Turquía", "Paraguay", "Australia"], "E": ["Alemania", "Ecuador", "C. Marfil", "Curazao"], "F": ["P. Bajos", "Japón", "Suecia", "Túnez"], "G": ["Bélgica", "Irán", "Egipto", "N. Zelanda"], "H": ["España", "Uruguay", "A. Saudita", "Cabo Verde"], "I": ["Francia", "Senegal", "Noruega", "Irak"], "J": ["Argentina", "Argelia", "Austria", "Jordania"], "K": ["Portugal", "Colombia", "Uzbekistán", "RD Congo"], "L": ["Croacia", "Inglaterra", "Ghana", "Panamá"]}, "thirds": ["Suecia", "Bosnia", "Escocia", "Paraguay", "C. Marfil", "Noruega", "Egipto", "Bélgica"], "r32": ["Alemania", "Paraguay", "Francia", "Suecia", "Corea del Sur", "Canadá", "P. Bajos", "Marruecos", "Colombia", "Inglaterra", "España", "Argelia", "EUA", "Bosnia", "Brasil", "Japón", "Ecuador", "Senegal", "México", "C. Marfil", "Croacia", "Austria", "Argentina", "Uruguay", "Turquía", "Irán", "Suiza", "Egipto", "Portugal", "Ghana", "Noruega", "Bélgica"], "r16": ["Alemania", "Francia", "Corea del Sur", "P. Bajos", "Colombia", "España", "EUA", "Bélgica", "Brasil", "Ecuador", "México", "Croacia", "Uruguay", "Turquía", "Suiza", "Portugal"], "qf": ["Francia", "P. Bajos", "España", "Bélgica", "Brasil", "Croacia", "Uruguay", "Portugal"], "sf": ["Francia", "España", "Brasil", "Portugal"], "final": "Francia", "subchamp": "Portugal", "third": "España", "champion": "Francia"}, "2": {"groups": {"A": ["Rep. Checa", "México", "Corea del Sur", "Sudáfrica"], "B": ["Suiza", "Canadá", "Qatar", "Bosnia"], "C": ["Brasil", "Escocia", "Marruecos", "Haití"], "D": ["Paraguay", "EUA", "Australia", "Turquía"], "E": ["Alemania", "Curazao", "C. Marfil", "Ecuador"], "F": ["P. Bajos", "Japón", "Suecia", "Túnez"], "G": ["Bélgica", "N. Zelanda", "Egipto", "Irán"], "H": ["España", "Uruguay", "Cabo Verde", "A. Saudita"], "I": ["Francia", "Noruega", "Senegal", "Irak"], "J": ["Argentina", "Jordania", "Austria", "Argelia"], "K": ["Portugal", "Colombia", "RD Congo", "Uzbekistán"], "L": ["Inglaterra", "Croacia", "Ghana", "Panamá"]}, "thirds": ["Escocia", "Qatar", "Marruecos", "Australia", "C. Marfil", "Suecia", "N. Zelanda", "Cabo Verde"], "r32": ["Alemania", "Marruecos", "Francia", "C. Marfil", "México", "Canadá", "N. Zelanda", "Escocia", "Colombia", "Croacia", "España", "Jordania", "Paraguay", "Egipto", "Bélgica", "Senegal", "Brasil", "Japón", "Curazao", "Noruega", "Rep. Checa", "Austria", "Inglaterra", "Ghana", "Argentina", "Uruguay", "EUA", "Suiza", "Portugal", "P. Bajos", "Ecuador", "Cabo Verde"], "r16": ["Francia", "Alemania", "México", "P. Bajos", "Colombia", "España", "Bélgica", "Paraguay", "Brasil", "Noruega", "Inglaterra", "Rep. Checa", "Argentina", "N. Zelanda", "Portugal", "Suiza"], "qf": ["Francia", "México", "España", "Bélgica", "Brasil", "Inglaterra", "Argentina", "Portugal"], "sf": ["Francia", "España", "Brasil", "Argentina"], "final": "España", "subchamp": "Argentina", "third": "Francia", "champion": "España"}, "3": {"groups": {"A": ["Rep. Checa", "México", "Sudáfrica", "Corea del Sur"], "B": ["Canadá", "Suiza", "Qatar", "Bosnia"], "C": ["Brasil", "Marruecos", "Escocia", "Haití"], "D": ["Turquía", "EUA", "Paraguay", "Australia"], "E": ["Alemania", "Ecuador", "C. Marfil", "Curazao"], "F": ["P. Bajos", "Suecia", "Japón", "Túnez"], "G": ["Bélgica", "N. Zelanda", "Egipto", "Irán"], "H": ["España", "Uruguay", "A. Saudita", "Cabo Verde"], "I": ["Francia", "Senegal", "Noruega", "Irak"], "J": ["Argentina", "Austria", "Argelia", "Jordania"], "K": ["Portugal", "Colombia", "RD Congo", "Uzbekistán"], "L": ["Inglaterra", "Croacia", "Ghana", "Panamá"]}, "thirds": ["Sudáfrica", "Qatar", "Escocia", "Paraguay", "Japón", "Egipto", "A. Saudita", "Noruega"], "r32": ["Suiza", "Alemania", "P. Bajos", "Brasil", "Francia", "Senegal", "Paraguay", "Inglaterra", "Turquía", "Bélgica", "Colombia", "España", "Egipto", "Argentina", "Portugal", "EUA"], "r16": ["P. Bajos", "Francia", "Brasil", "Inglaterra", "España", "Bélgica", "Argentina", "Portugal"], "qf": ["Francia", "Brasil", "España", "Argentina"], "sf": ["Brasil", "Argentina"], "final": "Brasil", "subchamp": "Argentina", "third": "Francia", "champion": "Brasil"}, "4": {"groups": {"A": ["México", "Rep. Checa", "Corea del Sur", "Sudáfrica"], "B": ["Suiza", "Canadá", "Bosnia", "Qatar"], "C": ["Brasil", "Marruecos", "Escocia", "Haití"], "D": ["EUA", "Turquía", "Paraguay", "Australia"], "E": ["Alemania", "Ecuador", "C. Marfil", "Curazao"], "F": ["P. Bajos", "Suecia", "Japón", "Túnez"], "G": ["Bélgica", "Egipto", "Irán", "N. Zelanda"], "H": ["España", "Uruguay", "A. Saudita", "Cabo Verde"], "I": ["Francia", "Noruega", "Senegal", "Irak"], "J": ["Argentina", "Austria", "Argelia", "Jordania"], "K": ["Portugal", "Colombia", "Uzbekistán", "RD Congo"], "L": ["Inglaterra", "Croacia", "Ghana", "Panamá"]}, "thirds": ["Corea del Sur", "Suecia", "Noruega", "Escocia", "Paraguay", "Uzbekistán", "Ghana", "Egipto"], "r32": ["Alemania", "Paraguay", "Francia", "Japón", "Rep. Checa", "Canadá", "P. Bajos", "Marruecos", "Colombia", "Croacia", "España", "Australia", "EUA", "Senegal", "Bélgica", "Corea del Sur", "Brasil", "Suecia", "Ecuador", "Noruega", "México", "Escocia", "Inglaterra", "Uzbekistán", "Argentina", "Uruguay", "Turquía", "Egipto", "Suiza", "Irán", "Portugal", "Ghana"], "r16": ["Alemania", "Francia", "Rep. Checa", "P. Bajos", "Colombia", "España", "EUA", "Bélgica", "Brasil", "Noruega", "México", "Inglaterra", "Argentina", "Turquía", "Portugal", "Suiza"], "qf": ["Francia", "P. Bajos", "España", "EUA", "Brasil", "Inglaterra", "Argentina", "Portugal"], "sf": ["Francia", "España", "Inglaterra", "Portugal"], "final": "Francia", "subchamp": "Inglaterra", "third": "España", "champion": "Francia"}, "5": {"groups": {"A": ["México", "Corea del Sur", "Rep. Checa", "Sudáfrica"], "B": ["Suiza", "Qatar", "Canadá", "Bosnia"], "C": ["Brasil", "Marruecos", "Escocia", "Haití"], "D": ["Paraguay", "EUA", "Australia", "Turquía"], "E": ["Alemania", "Ecuador", "Curazao", "C. Marfil"], "F": ["Japón", "P. Bajos", "Túnez", "Suecia"], "G": ["Bélgica", "N. Zelanda", "Egipto", "Irán"], "H": ["España", "Uruguay", "A. Saudita", "Cabo Verde"], "I": ["Francia", "Noruega", "Senegal", "Irak"], "J": ["Argentina", "Austria", "Jordania", "Argelia"], "K": ["Colombia", "Portugal", "Uzbekistán", "RD Congo"], "L": ["Inglaterra", "Croacia", "Ghana", "Panamá"]}, "thirds": ["Sudáfrica", "Qatar", "Escocia", "Paraguay", "Japón", "Egipto", "A. Saudita", "Noruega"], "r32": ["Alemania", "Escocia", "Francia", "Túnez", "Corea del Sur", "Qatar", "Japón", "Marruecos", "Portugal", "Croacia", "España", "Austria", "Paraguay", "Canadá", "Bélgica", "Rep. Checa", "Brasil", "P. Bajos", "Ecuador", "Noruega", "México", "Inglaterra", "Sudáfrica", "Argentina", "Uruguay", "EUA", "N. Zelanda", "Suiza", "Jordania", "Colombia", "Ghana", "Curazao"], "r16": [], "qf": [], "sf": [], "final": "", "subchamp": "", "third": "", "champion": ""}, "6": {"groups": {"A": ["Rep. Checa", "México", "Sudáfrica", "Corea del Sur"], "B": ["Canadá", "Suiza", "Qatar", "Bosnia"], "C": ["Brasil", "Marruecos", "Escocia", "Haití"], "D": ["Turquía", "EUA", "Paraguay", "Australia"], "E": ["Alemania", "Ecuador", "C. Marfil", "Curazao"], "F": ["P. Bajos", "Suecia", "Japón", "Túnez"], "G": ["Bélgica", "N. Zelanda", "Egipto", "Irán"], "H": ["España", "Uruguay", "A. Saudita", "Cabo Verde"], "I": ["Francia", "Senegal", "Noruega", "Irak"], "J": ["Argentina", "Austria", "Argelia", "Jordania"], "K": ["Portugal", "Colombia", "RD Congo", "Uzbekistán"], "L": ["Inglaterra", "Croacia", "Ghana", "Panamá"]}, "thirds": ["Sudáfrica", "Qatar", "Escocia", "Paraguay", "Japón", "Egipto", "A. Saudita", "Noruega"], "r32": ["Suiza", "Alemania", "P. Bajos", "Brasil", "Francia", "Senegal", "Paraguay", "Inglaterra", "Turquía", "Bélgica", "Colombia", "España", "Egipto", "Argentina", "Portugal", "EUA"], "r16": ["P. Bajos", "Francia", "Brasil", "Inglaterra", "España", "Bélgica", "Argentina", "Portugal"], "qf": ["Francia", "Brasil", "España", "Argentina"], "sf": ["Francia", "Argentina"], "final": "Argentina", "subchamp": "Francia", "third": "Brasil", "champion": "Argentina"}};
+  var nd={"1": "Jhon Niño", "2": "Carolina Zabala", "3": "Antonio e Inés", "4": "Marco Zabala", "5": "Gloria Sierra", "6": "Jesús Sanabria"};
+  for(var k in pd){S.picks[parseInt(k)]=pd[k];}
+  for(var k in nd){S.names[parseInt(k)]=nd[k];}
+})();
 // Init bracket slots
 for(var r=0;r<4;r++){
   var br=BRACKET_ROUNDS[r];
@@ -650,27 +665,83 @@ function renderSB(){
 // ═══ GRUPOS PÚBLICO ═══
 function renderGruposPub(){
   var h='';
-  Object.keys(GRP).forEach(function(g){
-    var real=S.results.groups[g]||[];
-    var gm=MX.filter(function(m){return m.g===g;});
-    h+='<div class="gcard"><div class="gcard-hd"><span class="gbadge">Grupo '+g+'</span>';
-    if(real.length>0)h+='<span class="tag tag-ok">Clasificados definidos</span>';
-    h+='</div>';
-    gm.forEach(function(m){
-      h+='<div class="match-c"><div class="match-meta"><span>'+m.d+' · '+m.h+'</span><span>'+m.v+'</span></div>';
-      h+='<div class="match-t"><span class="mfl">'+f(m.t1)+'</span> '+m.t1+' <span class="mvs">vs</span> '+m.t2+' <span class="mfl">'+f(m.t2)+'</span></div></div>';
+  var GK=Object.keys(GRP);
+  for(var gi=0;gi<GK.length;gi++){
+    var g=GK[gi];
+    var teams=GRP[g];
+    var gmatches=MX.filter(function(m){return m.g===g;});
+    // Build standings from scores
+    var standings={};
+    teams.forEach(function(t){standings[t]={pj:0,pg:0,pe:0,pp:0,gf:0,gc:0,pts:0,name:t};});
+    var anyPlayed=false;
+    gmatches.forEach(function(m){
+      var key=g+'_'+m.t1.replace(/\s/g,'')+'_'+m.t2.replace(/\s/g,'');
+      var sc=S.results.scores&&S.results.scores[key];
+      if(sc&&sc.played){
+        anyPlayed=true;
+        var h1=parseInt(sc.home)||0,h2=parseInt(sc.away)||0;
+        standings[m.t1].pj++;standings[m.t2].pj++;
+        standings[m.t1].gf+=h1;standings[m.t1].gc+=h2;
+        standings[m.t2].gf+=h2;standings[m.t2].gc+=h1;
+        if(h1>h2){standings[m.t1].pg++;standings[m.t1].pts+=3;standings[m.t2].pp++;}
+        else if(h1<h2){standings[m.t2].pg++;standings[m.t2].pts+=3;standings[m.t1].pp++;}
+        else{standings[m.t1].pe++;standings[m.t1].pts++;standings[m.t2].pe++;standings[m.t2].pts++;}
+      }
     });
-    if(real.length>0){
-      h+='<div style="margin-top:9px;padding-top:8px;border-top:1px solid var(--bd)"><div style="font-size:10px;color:var(--tx2);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Clasificados</div>';
-      real.forEach(function(t){h+='<div style="display:flex;align-items:center;gap:7px;padding:4px 0"><span style="font-size:16px">'+f(t)+'</span><span style="font-size:12px;font-weight:600">'+t+'</span></div>';});
-      h+='</div>';
+    // Sort standings
+    var sorted=Object.values(standings).sort(function(a,b){
+      if(b.pts!==a.pts)return b.pts-a.pts;
+      var gda=a.gf-a.gc,gdb=b.gf-b.gc;
+      if(gdb!==gda)return gdb-gda;
+      return b.gf-a.gf;
+    });
+    // Auto-set classifieds if all matches played
+    var allPlayed=gmatches.every(function(m){
+      var key=g+'_'+m.t1.replace(/\s/g,'')+'_'+m.t2.replace(/\s/g,'');
+      return S.results.scores&&S.results.scores[key]&&S.results.scores[key].played;
+    });
+    if(allPlayed&&sorted.length>=2){
+      S.results.groups[g]=[sorted[0].name,sorted[1].name,sorted[2].name,sorted[3].name];
     }
+    h+='<div class="gcard" style="margin-bottom:0">';
+    h+='<div class="gcard-hd"><span class="gbadge">Grupo '+g+'</span>';
+    if(allPlayed)h+='<span class="tag tag-ok" style="font-size:10px">Fase completada</span>';
     h+='</div>';
-  });
-  document.getElementById('grupos-pub-content').innerHTML=h;
+    // Standings table
+    if(anyPlayed){
+      h+='<table style="width:100%;border-collapse:collapse;margin-bottom:10px;font-size:11px">';
+      h+='<thead><tr style="background:var(--s2)"><th style="text-align:left;padding:4px 6px;border-bottom:1px solid var(--bd);font-weight:600">Equipo</th><th style="padding:4px 4px;border-bottom:1px solid var(--bd);text-align:center">PJ</th><th style="padding:4px 4px;border-bottom:1px solid var(--bd);text-align:center">PG</th><th style="padding:4px 4px;border-bottom:1px solid var(--bd);text-align:center">PE</th><th style="padding:4px 4px;border-bottom:1px solid var(--bd);text-align:center">PP</th><th style="padding:4px 4px;border-bottom:1px solid var(--bd);text-align:center">GD</th><th style="padding:4px 6px;border-bottom:1px solid var(--bd);text-align:center;font-weight:700;color:var(--gold)">Pts</th></tr></thead><tbody>';
+      sorted.forEach(function(t,i){
+        var qual=i<2;
+        h+='<tr style="background:'+(qual?'var(--gold-bg)':'')+'"><td style="padding:4px 6px;display:flex;align-items:center;gap:5px">'+f(t.name)+' '+t.name+'</td>';
+        h+='<td style="padding:4px;text-align:center">'+t.pj+'</td><td style="padding:4px;text-align:center">'+t.pg+'</td><td style="padding:4px;text-align:center">'+t.pe+'</td><td style="padding:4px;text-align:center">'+t.pp+'</td><td style="padding:4px;text-align:center">'+(t.gf-t.gc)+'</td>';
+        h+='<td style="padding:4px 6px;text-align:center;font-weight:700;color:var(--gold)">'+t.pts+'</td></tr>';
+      });
+      h+='</tbody></table>';
+    }
+    // Matches
+    h+='<div style="font-size:10px;color:var(--tx2);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Partidos</div>';
+    gmatches.forEach(function(m){
+      var key=g+'_'+m.t1.replace(/\s/g,'')+'_'+m.t2.replace(/\s/g,'');
+      var sc=S.results.scores&&S.results.scores[key];
+      var played=sc&&sc.played;
+      h+='<div style="background:var(--s2);border-radius:var(--r);padding:7px 9px;margin-bottom:4px">';
+      h+='<div style="font-size:10px;color:var(--tx2);margin-bottom:5px;display:flex;justify-content:space-between"><span>'+m.d+' · '+m.h+'</span><span>'+m.v+'</span></div>';
+      h+='<div style="display:flex;align-items:center;justify-content:space-between;gap:6px">';
+      h+='<div style="display:flex;align-items:center;gap:5px;flex:1"><span style="font-size:15px">'+f(m.t1)+'</span><span style="font-size:12px;font-weight:600">'+m.t1+'</span></div>';
+      if(played){
+        h+='<div style="background:var(--s1);border:1px solid var(--bd);border-radius:6px;padding:4px 10px;font-size:14px;font-weight:700;color:var(--tx);white-space:nowrap">'+sc.home+' - '+sc.away+'</div>';
+      } else {
+        h+='<div style="background:var(--s3);border-radius:6px;padding:4px 10px;font-size:11px;color:var(--tx2);white-space:nowrap">Por jugar</div>';
+      }
+      h+='<div style="display:flex;align-items:center;gap:5px;flex:1;justify-content:flex-end"><span style="font-size:12px;font-weight:600">'+m.t2+'</span><span style="font-size:15px">'+f(m.t2)+'</span></div>';
+      h+='</div></div>';
+    });
+    h+='</div>';
+  }
+  document.getElementById('grupos-pub-content').innerHTML='<div class="ggrids">'+h+'</div>';
 }
 
-// ═══ BRACKET PÚBLICO ═══
 function renderBracketPub(){
   var h='';
   var rds=[{id:'r32',lbl:'Dieciseisavos de final'},{id:'r16',lbl:'Octavos de final'},{id:'qf',lbl:'Cuartos de final'},{id:'sf',lbl:'Semifinales'},{id:'final',lbl:'Gran Final'},{id:'third',lbl:'3er Lugar'},{id:'champion',lbl:'Campeón'}];
@@ -937,15 +1008,33 @@ function saveNm(){document.querySelectorAll('.nrow input').forEach(function(inp)
 
 // ═══ ADMIN: RESULTADOS GRUPOS ═══
 function renderAdminResGrupos(c){
-  var h='<div class="asec"><h3>Resultados — Fase de grupos</h3><p class="asub">Marca los 2 equipos que clasifican de cada grupo.</p>';
-  Object.keys(GRP).forEach(function(g){
-    var cur=S.results.groups[g]||[];
-    h+='<div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:10px;margin-bottom:7px"><div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:7px">Grupo '+g+' <span style="font-size:11px;font-weight:400;color:var(--tx2)">'+cur.length+'/2</span></div><div class="tgrid">';
-    GRP[g].forEach(function(t){var on=cur.indexOf(t)>-1;h+='<div class="tb'+(on?' on':'')+'" onclick="resGrp(\''+g+'\',\''+t.replace(/'/g,"\\'")+'\')"><span class="fl">'+f(t)+'</span><span class="tn">'+t+'</span><span class="ck">'+(on?'✓':'')+'</span></div>';});
-    h+='</div></div>';
-  });
-  h+='</div>';c.innerHTML=h;
+  var h='<div class="asec"><h3>Resultados de partidos</h3><p class="asub">Ingresa el marcador de cada partido. Los clasificados se calculan automáticamente según la tabla de posiciones.</p>';
+  var GK=Object.keys(GRP);
+  for(var gi=0;gi<GK.length;gi++){
+    var g=GK[gi];
+    var gmatches=MX.filter(function(m){return m.g===g;});
+    h+='<div style="background:var(--s2);border:1px solid var(--bd);border-radius:var(--r);padding:12px;margin-bottom:10px">';
+    h+='<div style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:10px">Grupo '+g+'</div>';
+    gmatches.forEach(function(m){
+      var key=g+'_'+m.t1.replace(/\s/g,'')+'_'+m.t2.replace(/\s/g,'');
+      var sc=S.results.scores&&S.results.scores[key]||{home:'',away:'',played:false};
+      h+='<div style="background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);padding:10px;margin-bottom:7px">';
+      h+='<div style="font-size:10px;color:var(--tx2);margin-bottom:8px">'+m.d+' · '+m.h+' · '+m.v+'</div>';
+      h+='<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">';
+      h+='<div style="display:flex;align-items:center;gap:5px;flex:1"><span style="font-size:16px">'+f(m.t1)+'</span><span style="font-size:12px;font-weight:600">'+m.t1+'</span></div>';
+      h+='<input type="number" min="0" max="20" value="'+(sc.home||0)+'" data-key="'+key+'" data-side="home" onchange="setScore(this)" style="width:48px;text-align:center;padding:5px;font-size:14px;font-weight:700">';
+      h+='<span style="font-size:14px;font-weight:700;color:var(--tx2)">-</span>';
+      h+='<input type="number" min="0" max="20" value="'+(sc.away||0)+'" data-key="'+key+'" data-side="away" onchange="setScore(this)" style="width:48px;text-align:center;padding:5px;font-size:14px;font-weight:700">';
+      h+='<div style="display:flex;align-items:center;gap:5px;flex:1;justify-content:flex-end"><span style="font-size:12px;font-weight:600">'+m.t2+'</span><span style="font-size:16px">'+f(m.t2)+'</span></div>';
+      h+='<label style="display:flex;align-items:center;gap:5px;font-size:12px;cursor:pointer;white-space:nowrap"><input type="checkbox" '+(sc.played?'checked':'')+' data-key="'+key+'" onchange="setPlayed(this)" style="accent-color:var(--gold)"> Jugado</label>';
+      h+='</div></div>';
+    });
+    h+='</div>';
+  }
+  h+='</div>';
+  c.innerHTML=h;
 }
+
 function resGrp(g,t){var cur=S.results.groups[g]||[];var i=cur.indexOf(t);if(i>-1)cur.splice(i,1);else{if(cur.length>=2){toast('Solo 2 por grupo','err');renderAdminResGrupos(document.getElementById('acontent'));return;}cur.push(t);}S.results.groups[g]=cur;sv();renderSB();renderAdminResGrupos(document.getElementById('acontent'));renderGruposPub();}
 
 // ═══ ADMIN: MEJORES TERCEROS ═══
@@ -1070,7 +1159,7 @@ function renderAdminExportar(c){
 function expAll(){var b=new Blob([JSON.stringify({picks:S.picks,names:S.names,results:S.results},null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='mundial2026_polla.json';document.body.appendChild(a);a.click();document.body.removeChild(a);toast('Exportado ✓','ok');}
 function expCSV(){var csv='Pos,Carton,Nombre,Puntos,Aciertos\n',arr=[];for(var i=1;i<=NC;i++){var s=sc(i);arr.push({id:i,pts:s.pts,hits:s.hits});}arr.sort(function(a,b){return b.pts-a.pts;});arr.forEach(function(s,i){csv+=(i+1)+','+s.id+',"'+(S.names[s.id]||'Cartón '+s.id)+'",'+s.pts+','+s.hits+'\n';});var b=new Blob([csv],{type:'text/csv'});var a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='marcador.csv';document.body.appendChild(a);a.click();document.body.removeChild(a);toast('CSV ✓','ok');}
 function rstPicks(){if(!confirm('¿Resetear TODOS los pronósticos?'))return;for(var i=1;i<=NC;i++)S.picks[i]={groups:{},thirds:[],r32:[],r16:[],qf:[],sf:[],final:'',third:'',subchamp:'',champion:''};sv();renderSB();toast('Reseteado','ok');}
-function rstRes(){if(!confirm('¿Resetear todos los resultados?'))return;S.results={groups:{},thirds:[],r32:[],r16:[],qf:[],sf:[],final:{t1:'',t2:'',winner:''},third:{t1:'',t2:'',winner:''},champion:'',subchamp:''};sv();renderSB();toast('Reseteado','ok');}
+function rstRes(){if(!confirm('¿Resetear todos los resultados?'))return;S.results={groups:{},thirds:[],r32:[],r16:[],qf:[],sf:[],final:{t1:'',t2:'',winner:''},third:{t1:'',t2:'',winner:''},champion:'',subchamp:'',scores:{}};sv();renderSB();toast('Reseteado','ok');}
 
 // ═══ PRINT PDF (Fase 1) ═══
 function printPDF(){
@@ -1304,6 +1393,24 @@ function openPubC(id){
 function closePubC(){
   document.getElementById('pub-mod').style.display='none';
   document.body.style.overflow='';
+}
+
+
+function setScore(el){
+  var key=el.dataset.key;
+  var side=el.dataset.side;
+  if(!S.results.scores)S.results.scores={};
+  if(!S.results.scores[key])S.results.scores[key]={home:0,away:0,played:false};
+  S.results.scores[key][side]=parseInt(el.value)||0;
+  sv();renderGruposPub();renderSB();
+}
+function setPlayed(el){
+  var key=el.dataset.key;
+  if(!S.results.scores)S.results.scores={};
+  if(!S.results.scores[key])S.results.scores[key]={home:0,away:0,played:false};
+  S.results.scores[key].played=el.checked;
+  sv();renderGruposPub();renderSB();
+  if(S.adminLogged)renderAdminResGrupos(document.getElementById('acontent'));
 }
 
 // INIT
