@@ -1,1 +1,1 @@
-# PollaFurbolera
+# PollaFutboleraMundial2026
