@@ -1,3 +1,5 @@
+<!-- final-212124 -->
+<!-- nocache-210856 -->
 <!-- fix-210514 -->
 <!-- v20260610210009 -->
 <!DOCTYPE html>
@@ -470,6 +472,8 @@ select option{background:var(--s1)}
 </div>
 
 <script>
+// Force clear old cached data
+try{localStorage.removeItem('mw26v5');localStorage.removeItem('mw26final');}catch(e){}
 // ═══ DATA ═══
 var FL={'México':'🇲🇽','Sudáfrica':'🇿🇦','Corea del Sur':'🇰🇷','Rep. Checa':'🇨🇿','Canadá':'🇨🇦','Bosnia':'🇧🇦','Qatar':'🇶🇦','Suiza':'🇨🇭','Brasil':'🇧🇷','Marruecos':'🇲🇦','Haití':'🇭🇹','Escocia':'🏴󠁧󠁢󠁳󠁣󠁴󠁿','EUA':'🇺🇸','Paraguay':'🇵🇾','Australia':'🇦🇺','Turquía':'🇹🇷','Alemania':'🇩🇪','Curazao':'🇨🇼','C. Marfil':'🇨🇮','Ecuador':'🇪🇨','P. Bajos':'🇳🇱','Japón':'🇯🇵','Suecia':'🇸🇪','Túnez':'🇹🇳','Bélgica':'🇧🇪','Egipto':'🇪🇬','Irán':'🇮🇷','N. Zelanda':'🇳🇿','España':'🇪🇸','Cabo Verde':'🇨🇻','A. Saudita':'🇸🇦','Uruguay':'🇺🇾','Francia':'🇫🇷','Senegal':'🇸🇳','Irak':'🇮🇶','Noruega':'🇳🇴','Argentina':'🇦🇷','Argelia':'🇩🇿','Austria':'🇦🇹','Jordania':'🇯🇴','Portugal':'🇵🇹','RD Congo':'🇨🇩','Uzbekistán':'🇺🇿','Colombia':'🇨🇴','Inglaterra':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Croacia':'🇭🇷','Ghana':'🇬🇭','Panamá':'🇵🇦'};
 var f=function(t){return FL[t]||'🏳';};
@@ -1295,12 +1299,7 @@ function toggleChampion(el, t) {
 
 
 // ── DATOS HARDCODED ──
-(function(){
-  var pd={"1": {"groups": {"A": ["México", "Corea del Sur", "Rep. Checa", "Sudáfrica"], "B": ["Suiza", "Canadá", "Bosnia", "Qatar"], "C": ["Brasil", "Marruecos", "Escocia", "Haití"], "D": ["EUA", "Turquía", "Paraguay", "Australia"], "E": ["Alemania", "Ecuador", "C. Marfil", "Curazao"], "F": ["P. Bajos", "Japón", "Suecia", "Túnez"], "G": ["Bélgica", "Irán", "Egipto", "N. Zelanda"], "H": ["España", "Uruguay", "A. Saudita", "Cabo Verde"], "I": ["Francia", "Senegal", "Noruega", "Irak"], "J": ["Argentina", "Argelia", "Austria", "Jordania"], "K": ["Portugal", "Colombia", "Uzbekistán", "RD Congo"], "L": ["Croacia", "Inglaterra", "Ghana", "Panamá"]}, "thirds": ["Suecia", "Bosnia", "Escocia", "Paraguay", "C. Marfil", "Noruega", "Egipto", "Bélgica"], "r32": ["Alemania", "Paraguay", "Francia", "Suecia", "Corea del Sur", "Canadá", "P. Bajos", "Marruecos", "Colombia", "Inglaterra", "España", "Argelia", "EUA", "Bosnia", "Brasil", "Japón", "Ecuador", "Senegal", "México", "C. Marfil", "Croacia", "Austria", "Argentina", "Uruguay", "Turquía", "Irán", "Suiza", "Egipto", "Portugal", "Ghana", "Noruega", "Bélgica"], "r16": ["Alemania", "Francia", "Corea del Sur", "P. Bajos", "Colombia", "España", "EUA", "Bélgica", "Brasil", "Ecuador", "México", "Croacia", "Uruguay", "Turquía", "Suiza", "Portugal"], "qf": ["Francia", "P. Bajos", "España", "Bélgica", "Brasil", "Croacia", "Uruguay", "Portugal"], "sf": ["Francia", "España", "Brasil", "Portugal"], "final": "Francia", "subchamp": "Portugal", "third": "España", "champion": "Francia"}, "2": {"groups": {"A": ["Rep. Checa", "México", "Corea del Sur", "Sudáfrica"], "B": ["Suiza", "Canadá", "Qatar", "Bosnia"], "C": ["Brasil", "Escocia", "Marruecos", "Haití"], "D": ["Paraguay", "EUA", "Australia", "Turquía"], "E": ["Alemania", "Curazao", "C. Marfil", "Ecuador"], "F": ["P. Bajos", "Japón", "Suecia", "Túnez"], "G": ["Bélgica", "N. Zelanda", "Egipto", "Irán"], "H": ["España", "Uruguay", "Cabo Verde", "A. Saudita"], "I": ["Francia", "Noruega", "Senegal", "Irak"], "J": ["Argentina", "Jordania", "Austria", "Argelia"], "K": ["Portugal", "Colombia", "RD Congo", "Uzbekistán"], "L": ["Inglaterra", "Croacia", "Ghana", "Panamá"]}, "thirds": ["Escocia", "Qatar", "Marruecos", "Australia", "C. Marfil", "Suecia", "N. Zelanda", "Cabo Verde"], "r32": ["Alemania", "Marruecos", "Francia", "C. Marfil", "México", "Canadá", "N. Zelanda", "Escocia", "Colombia", "Croacia", "España", "Jordania", "Paraguay", "Egipto", "Bélgica", "Senegal", "Brasil", "Japón", "Curazao", "Noruega", "Rep. Checa", "Austria", "Inglaterra", "Ghana", "Argentina", "Uruguay", "EUA", "Suiza", "Portugal", "P. Bajos", "Ecuador", "Cabo Verde"], "r16": ["Francia", "Alemania", "México", "P. Bajos", "Colombia", "España", "Bélgica", "Paraguay", "Brasil", "Noruega", "Inglaterra", "Rep. Checa", "Argentina", "N. Zelanda", "Portugal", "Suiza"], "qf": ["Francia", "México", "España", "Bélgica", "Brasil", "Inglaterra", "Argentina", "Portugal"], "sf": ["Francia", "España", "Brasil", "Argentina"], "final": "España", "subchamp": "Argentina", "third": "Francia", "champion": "España"}, "3": {"groups": {"A": ["Rep. Checa", "México", "Sudáfrica", "Corea del Sur"], "B": ["Canadá", "Suiza", "Qatar", "Bosnia"], "C": ["Brasil", "Marruecos", "Escocia", "Haití"], "D": ["Turquía", "EUA", "Paraguay", "Australia"], "E": ["Alemania", "Ecuador", "C. Marfil", "Curazao"], "F": ["P. Bajos", "Suecia", "Japón", "Túnez"], "G": ["Bélgica", "N. Zelanda", "Egipto", "Irán"], "H": ["España", "Uruguay", "A. Saudita", "Cabo Verde"], "I": ["Francia", "Senegal", "Noruega", "Irak"], "J": ["Argentina", "Austria", "Argelia", "Jordania"], "K": ["Portugal", "Colombia", "RD Congo", "Uzbekistán"], "L": ["Inglaterra", "Croacia", "Ghana", "Panamá"]}, "thirds": ["Sudáfrica", "Qatar", "Escocia", "Paraguay", "Japón", "Egipto", "A. Saudita", "Noruega"], "r32": ["Suiza", "Alemania", "P. Bajos", "Brasil", "Francia", "Senegal", "Paraguay", "Inglaterra", "Turquía", "Bélgica", "Colombia", "España", "Egipto", "Argentina", "Portugal", "EUA"], "r16": ["P. Bajos", "Francia", "Brasil", "Inglaterra", "España", "Bélgica", "Argentina", "Portugal"], "qf": ["Francia", "Brasil", "España", "Argentina"], "sf": ["Brasil", "Argentina"], "final": "Brasil", "subchamp": "Argentina", "third": "Francia", "champion": "Brasil"}};
-  var nd={"1": "Jhon Niño", "2": "Carolina Zabala", "3": "Antonio e Inés"};
-  for(var k in pd){S.picks[parseInt(k)]=pd[k];}
-  for(var k in nd){S.names[parseInt(k)]=nd[k];}
-})();
+
 
 function openPubC(id){
   var pk=S.picks[id],rs=S.results,s2=sc(id);
